@@ -1,5 +1,6 @@
 import firebase from "@firebase/app";
 import "@firebase/database";
+import { NewsItem } from "../view/home";
 export function setup() {
   firebase.initializeApp({
     apiKey: "AIzaSyACyIx2q6UNWxP7UPbIlaeqF6Q8-JBpYuY",
@@ -12,7 +13,7 @@ export function setup() {
 }
 
 export function getDatabaseChild(val: string) {
-  let arr: any[] = [];
+  let arr: NewsItem[] = [];
 
   return firebase.database!()
     .ref(val)
@@ -21,12 +22,10 @@ export function getDatabaseChild(val: string) {
 
       snapshot.forEach(data => {
         console.log(data.val());
-
         arr.push(data.val());
       });
     })
     .then(() => {
       return arr;
     });
-
 }
